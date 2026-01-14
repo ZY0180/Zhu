@@ -68,15 +68,58 @@
           font-style: italic; 
           margin-top: 10px;
         }
+        .debug-info {
+          background: #fff8e1;
+          padding: 10px;
+          border-radius: 5px;
+          margin: 10px 0;
+          border: 1px solid #ffd54f;
+        }
     </style>
 </head>
 <body>
-    <!-- 图片：确保文件与 HTML 在同一目录 -->
-    <img src="https://raw.githubusercontent.com/zy0180/zhu/main/dog.png" alt="托腮表情" style="display: block; margin: 0 auto 20px; max-width: 100%; height: auto;">
+    <div class="debug-info">
+        <h3>调试信息：</h3>
+        <p>页面URL: <span id="page-url"></span></p>
+        <p>尝试加载的图片: <span id="img-src"></span></p>
+        <p>状态: <span id="img-status">加载中...</span></p>
+    </div>
     
-    <h1>点开了？让你点开就点开？</h1><br><br>
-    <h1>Grid</h1>
+    <!-- 先尝试绝对路径 -->
+    <img id="test-image" src="https://raw.githubusercontent.com/zy0180/zhu/main/dog.png" 
+         alt="托腮表情" 
+         style="display: block; margin: 0 auto 20px; max-width: 300px; height: auto; border: 2px solid #4a6cf7;"
+         onload="document.getElementById('img-status').textContent='图片加载成功！'"
+         onerror="document.getElementById('img-status').textContent='图片加载失败，请检查路径'">
+    
+    <h1>点开了？让你点开就点开？</h1>
+    
+    <!-- 测试本地相对路径 -->
+    <div style="text-align: center; margin: 20px;">
+        <p>测试其他路径：</p>
+        <button onclick="document.getElementById('test-image').src='dog.png'">路径1: dog.png</button>
+        <button onclick="document.getElementById('test-image').src='./dog.png'">路径2: ./dog.png</button>
+        <button onclick="document.getElementById('test-image').src='/zhu/dog.png'">路径3: /zhu/dog.png</button>
+        <button onclick="document.getElementById('test-image').src='https://zy0180.github.io/zhu/dog.png'">路径4: GitHub Pages</button>
+        <button onclick="document.getElementById('test-image').src='https://raw.githubusercontent.com/zy0180/zhu/main/dog.png'">路径5: Raw URL</button>
+    </div>
 
-    <!-- 其他内容... -->
+    <script>
+        // 显示当前页面URL
+        document.getElementById('page-url').textContent = window.location.href;
+        document.getElementById('img-src').textContent = document.getElementById('test-image').src;
+        
+        // 监听图片加载状态
+        document.getElementById('test-image').onerror = function() {
+            document.getElementById('img-status').textContent = '图片加载失败，请检查路径';
+            document.getElementById('img-status').style.color = 'red';
+        };
+        
+        document.getElementById('test-image').onload = function() {
+            document.getElementById('img-status').textContent = '图片加载成功！';
+            document.getElementById('img-status').style.color = 'green';
+            document.getElementById('img-src').textContent = this.src;
+        };
+    </script>
 </body>
 </html>
