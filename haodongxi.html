@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点开了？</title>
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          max-width: 900px;
+          margin: 30px auto;
+          padding: 20px;
+          background: #f9f9ff;
+          color: #333;
+        }
+        h1, h2 { text-align: center; color: #4a6cf7; }
+        .step { 
+          background: white; 
+          padding: 15px; 
+          margin: 20px 0; 
+          border-radius: 10px; 
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        button {
+          background: #4a6cf7;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 16px;
+          margin: 10px 5px;
+        }
+        button:hover { background: #3a5bf5; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        input, label {
+          display: block;
+          margin: 8px 0;
+          font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          font-size: 14px;
+          box-sizing: border-box;
+        }
+        .video-item {
+          margin-top: 10px;
+          padding: 10px;
+          background: #f0f4ff;
+          border-radius: 8px;
+        }
+        .video-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 15px;
+          margin-top: 15px;
+        }
+        video {
+          width: 100%;
+          border-radius: 8px;
+          background: #000;
+        }
+        .status { 
+          color: #4a6cf7; 
+          font-style: italic; 
+          margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 图片：确保文件与 HTML 在同一目录 -->
+    <img src="dog.png" alt="托腮表情" style="display: block; margin: 0 auto 20px; max-width: 100%; height: auto;">
+    
+    <h1>点开了？让你点开就点开？</h1>
+
+    <!-- 其他内容... -->
+</body>
+</html>
