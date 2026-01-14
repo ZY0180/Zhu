@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>点开了？</title>
     <style>
+        /* 保持原有样式不变 */
         body {
           font-family: 'Segoe UI', sans-serif;
           max-width: 900px;
@@ -68,57 +69,40 @@
           font-style: italic; 
           margin-top: 10px;
         }
-        .debug-info {
-          background: #fff8e1;
-          padding: 10px;
-          border-radius: 5px;
-          margin: 10px 0;
-          border: 1px solid #ffd54f;
-        }
     </style>
 </head>
 <body>
-    <div class="debug-info">
-        <h3>调试信息：</h3>
-        <p>页面URL: <span id="page-url"></span></p>
-        <p>尝试加载的图片: <span id="img-src"></span></p>
-        <p>状态: <span id="img-status">加载中...</span></p>
-    </div>
-    
-    <!-- 先尝试绝对路径 -->
-    <img id="test-image" src="https://raw.githubusercontent.com/zy0180/zhu/main/dog.png" 
+    <!-- 方法1：尝试几种可能的路径 -->
+    <!-- 先试这个，如果不行再试其他的 -->
+    <img src="https://raw.githubusercontent.com/zy0180/zhu/main/dog.png" 
          alt="托腮表情" 
-         style="display: block; margin: 0 auto 20px; max-width: 300px; height: auto; border: 2px solid #4a6cf7;"
-         onload="document.getElementById('img-status').textContent='图片加载成功！'"
-         onerror="document.getElementById('img-status').textContent='图片加载失败，请检查路径'">
+         style="display: block; margin: 0 auto 20px; max-width: 100%; height: auto;"
+         onerror="this.style.display='none'; document.getElementById('fallback').style.display='block';">
+    
+    <!-- 备用显示区域 -->
+    <div id="fallback" style="display: none; text-align: center; padding: 20px; background: #ffebee; border-radius: 10px;">
+        <p style="color: #c62828;">⚠️ 图片加载失败！</p>
+        <p>请检查：</p>
+        <p>1. 图片文件名是否正确（注意大小写）</p>
+        <p>2. 图片是否在仓库中</p>
+        <p>3. 图片URL：<a href="https://raw.githubusercontent.com/zy0180/zhu/main/dog.png" target="_blank">
+            https://raw.githubusercontent.com/zy0180/zhu/main/dog.png
+        </a></p>
+    </div>
     
     <h1>点开了？让你点开就点开？</h1>
-    
-    <!-- 测试本地相对路径 -->
-    <div style="text-align: center; margin: 20px;">
-        <p>测试其他路径：</p>
-        <button onclick="document.getElementById('test-image').src='dog.png'">路径1: dog.png</button>
-        <button onclick="document.getElementById('test-image').src='./dog.png'">路径2: ./dog.png</button>
-        <button onclick="document.getElementById('test-image').src='/zhu/dog.png'">路径3: /zhu/dog.png</button>
-        <button onclick="document.getElementById('test-image').src='https://zy0180.github.io/zhu/dog.png'">路径4: GitHub Pages</button>
-        <button onclick="document.getElementById('test-image').src='https://raw.githubusercontent.com/zy0180/zhu/main/dog.png'">路径5: Raw URL</button>
-    </div>
 
     <script>
-        // 显示当前页面URL
-        document.getElementById('page-url').textContent = window.location.href;
-        document.getElementById('img-src').textContent = document.getElementById('test-image').src;
-        
-        // 监听图片加载状态
-        document.getElementById('test-image').onerror = function() {
-            document.getElementById('img-status').textContent = '图片加载失败，请检查路径';
-            document.getElementById('img-status').style.color = 'red';
-        };
-        
-        document.getElementById('test-image').onload = function() {
-            document.getElementById('img-status').textContent = '图片加载成功！';
-            document.getElementById('img-status').style.color = 'green';
-            document.getElementById('img-src').textContent = this.src;
+        // 自动检测图片是否加载成功
+        window.onload = function() {
+            var img = document.querySelector('img');
+            var fallback = document.getElementById('fallback');
+            
+            // 如果图片加载失败，显示错误信息
+            if (img.naturalHeight === 0) {
+                img.style.display = 'none';
+                fallback.style.display = 'block';
+            }
         };
     </script>
 </body>
